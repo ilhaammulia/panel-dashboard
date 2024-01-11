@@ -3,22 +3,17 @@
 namespace Services;
 
 use App\Actions\Fortify\CreateNewUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Error;
 
 class UserService
 {
   public function register($input)
   {
-    try {
-      $newUser = new CreateNewUser();
-      $newUser->create($input);
+    $newUser = new CreateNewUser();
+    $newUser->create($input);
 
-      return $newUser;
-    } catch (Error $err) {
-      throw new Error($err);
-    }
+    return $newUser;
   }
 
   public function login($username, $password)
@@ -34,9 +29,17 @@ class UserService
 
   public function getUser($id)
   {
+    $user = User::find($id);
+    return $user;
   }
 
   public function update($id, $input)
   {
+    $user = User::find($id);
+    if ($user) {
+      $user->update($input);
+    }
+
+    return $user;
   }
 }
