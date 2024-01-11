@@ -15,9 +15,9 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/login', function () {
-    return Inertia::render('Admin/Show');
-});
+// Route::get('/login', function () {
+//     return Inertia::render('Auth/Login');
+// });
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,12 +28,16 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/manage-user', function () {
+    return Inertia::render('Panel/Manage-User');
+})->middleware(['auth', 'verified'])->name('manage-user');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Panel/Home');
     })->name('dashboard');
 });
