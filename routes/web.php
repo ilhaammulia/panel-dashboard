@@ -32,6 +32,18 @@ Route::get('/manage-user', function () {
     return Inertia::render('Panel/Manage-User');
 })->middleware(['auth', 'verified'])->name('manage-user');
 
+Route::get('/manage-role', function () {
+    return Inertia::render('Panel/Manage-Role');
+})->middleware(['auth', 'verified'])->name('manage-role');
+
+Route::get('/manage-panel', function () {
+    return Inertia::render('Panel/Manage-Panel');
+})->middleware(['auth', 'verified'])->name('manage-panel');
+
+Route::get('/manage-user-panels', function () {
+    return Inertia::render('Panel/Manage-User-Panels');
+})->middleware(['auth', 'verified'])->name('manage-user-panels');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
