@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PanelController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPanelController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,9 +19,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/login', function () {
-    return Inertia::render('Admin/Show');
-});
+Route::middleware(['must.admin'])->get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::resource('users', UserController::class);
+Route::resource('panels', PanelController::class);
+Route::resource('users.panels', UserPanelController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,12 +33,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return Inertia::render('Dashboard');
+//     })->name('dashboard');
+// });

@@ -42,4 +42,18 @@ class UserService
 
     return $user;
   }
+
+  public function delete($id)
+  {
+    $user = User::find($id);
+    if ($user) {
+      $user->delete();
+    }
+    return $user;
+  }
+
+  public function json($data)
+  {
+    return $data->toArray();
+  }
 }
