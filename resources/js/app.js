@@ -2,8 +2,10 @@ import "./bootstrap";
 import "../css/app.css";
 
 import PrimeVue from "primevue/config";
-import "primevue/resources/themes/lara-light-green/theme.css";
+import ToastService from "primevue/toastservice";
+import "primevue/resources/themes/lara-light-indigo/theme.css";
 import "primevue/resources/primevue.min.css";
+import "primeicons/primeicons.css";
 
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
@@ -24,6 +26,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(PrimeVue)
+            .use(ToastService)
             .mount(el);
     },
     progress: {

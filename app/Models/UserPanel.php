@@ -19,7 +19,8 @@ class UserPanel extends Model
         'status',
         'domain',
         'telegram_bot_token',
-        'telegram_chat_id'
+        'telegram_chat_id',
+        'expired_at'
     ];
 
     public $incrementing = false;

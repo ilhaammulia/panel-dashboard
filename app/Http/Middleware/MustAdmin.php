@@ -16,7 +16,6 @@ class MustAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = Auth::user();
         return $next($request);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Inertia\Inertia;
 use Services\UserService;
 
 class UserController extends Controller
@@ -26,7 +27,7 @@ class UserController extends Controller
                 'panels' => $user->UserPanels->toArray(),
             ];
         });
-        return $users;
+        return Inertia::render('Admin/Users', ['users' => $users]);
     }
 
     /**

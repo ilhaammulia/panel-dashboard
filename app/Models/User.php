@@ -20,6 +20,8 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasUuids;
 
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
