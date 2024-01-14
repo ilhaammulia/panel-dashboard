@@ -7,11 +7,14 @@ use App\Models\UserPanel;
 use App\Models\Panel;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Services\NotificationService;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $notificationService = new NotificationService();
+
         return Inertia::render('Admin/Dashboard', [
             'meta' => [
                 'total_users' => User::where('role_id', 'user')->count(),
@@ -26,6 +29,7 @@ class DashboardController extends Controller
                     'inactive' => UserPanel::where('status', '!=', 'active')->count()
                 ]
             ],
+            'notifications' => $notificationService->today(),
             'recent_users' => User::where(['role_id' => 'user'])->orderBy('created_at', 'desc')->limit(10)->get()->toArray(), // User::where(['role_id' => 'user', 'expired_at' => null])->orderBy('created_at', 'desc')->limit(10)->get()->toArray()
         ]);
     }
@@ -46,7 +50,7 @@ class DashboardController extends Controller
                     'inactive' => UserPanel::where('status', '!=', 'active')->count()
                 ]
             ],
-            'recent_users' => User::where(['role_id' => 'user'])->orderBy('created_at', 'desc')->limit(10)->get()->toArray(), // User::where(['role_id' => 'user', 'expired_at' => null])->orderBy('created_at', 'desc')->limit(10)->get()->toArray()
+            'recent_users' => User::where(['role_id' => 'user'])->orderBy('created_at', 'desc')->limit(10)->get()->toArray(), // User::where(['role_id' => 'user', 'expired_at' => null])->orderBy('created_at', 'desc')->limit(10)->get()->toArray(),
         ]);
     }
 }

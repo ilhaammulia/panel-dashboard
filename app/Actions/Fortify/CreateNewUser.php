@@ -32,6 +32,8 @@ class CreateNewUser implements CreatesNewUsers
             'username' => $input['username'],
             'email' => $input['email'],
             'role_id' => $input['role_id'],
+            'telegram_bot_token' => $input['telegram_bot_token'],
+            'telegram_chat_id' => $input['telegram_chat_id'],
             'password' => Hash::make($input['password']),
         ]);
     }

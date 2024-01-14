@@ -4,8 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class MustAdmin
 {
@@ -16,6 +17,9 @@ class MustAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!$request->user() || $request->user()->role_id != 'admin') {
+            return Redirect::guest('/');
+        }
         return $next($request);
     }
 }

@@ -7,7 +7,9 @@
           <DataTable :value="users" dataKey="id" v-model:selection="selectedUsers" v-model:filters="filters" :globalFilterFields="['name', 'username', 'email', 'role']" paginator :rows="10" :rowsPerPageOptions="[10, 20, 50]" tableStyle="min-width: 50rem">
               <template #header>
                   <div class="flex justify-content-end">
-                      <Button @click="toggleAdd" icon="pi pi-plus" class="border-round mr-4" />
+                      <Button @click="toggleAdd" icon="pi pi-plus" severity="primary" class="border-round mr-2" />
+                      <Button @click="handleDelete($event)" icon="pi pi-trash" severity="danger" class="border-round mr-3" />
+                      <ConfirmPopup></ConfirmPopup>
                       <span class="p-input-icon-left">
                           <i class="pi pi-search" />
                           <InputText v-model="filters['global'].value" class="border-round" placeholder="Keyword Search" />
@@ -49,7 +51,7 @@
               <span class="font-semibold text-lg text-gray-600">Add User</span>
               <Button @click="toggleAdd()" icon="pi pi-times" class="p-button-text p-button-plain p-button-rounded"></Button>
             </div>
-            <div class="flex flex-col gap-4">
+            <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="name">Name</label>
@@ -58,12 +60,14 @@
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="username">Username</label>
                     <InputText id="username" v-model="form.username" placeholder="Username" aria-describedby="username-help" />
+                    <small v-if="$page.props.errors?.username" class="text-red-500">{{ $page.props.errors?.username }}</small>
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="email">Email</label>
                     <InputText id="email" v-model="form.email" placeholder="Email" aria-describedby="email-help" />
+                    <small v-if="$page.props.errors?.email" class="text-red-500">{{ $page.props.errors?.email }}</small>
                 </div>
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="username">Role</label>
@@ -82,10 +86,10 @@
               </div>
               <div class="flex flex-column gap-2 w-full border-round">
                   <label for="password">Password</label>
-                  <InputText id="password" placeholder="Password" aria-describedby="password-help" />
+                  <Password id="password" v-model="form.password" placeholder="Password" :feedback="false" aria-describedby="password-help" />
               </div>
-              <Button label="Save" class="border-round" />
-            </div>
+              <Button type="submit" label="Save" class="border-round" />
+            </form>
           </div>
 
           <div class="card mt-4 max-w-3xl" v-if="editUser">
@@ -93,7 +97,7 @@
               <span class="font-semibold text-lg text-gray-600">Edit User</span>
               <Button @click="toggleEdit(null)" icon="pi pi-times" class="p-button-text p-button-plain p-button-rounded"></Button>
             </div>
-            <div class="flex flex-col gap-4">
+            <form @submit.prevent="handleUpdate" class="flex flex-col gap-4">
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="name">Name</label>
@@ -102,12 +106,14 @@
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="username">Username</label>
                     <InputText id="username" v-model="editUser.username" placeholder="Username" aria-describedby="username-help" />
+                    <small v-if="$page.props.errors?.username" class="text-red-500">{{ $page.props.errors?.username }}</small>
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="email">Email</label>
                     <InputText id="email" v-model="editUser.email" placeholder="Email" aria-describedby="email-help" />
+                    <small v-if="$page.props.errors?.email" class="text-red-500">{{ $page.props.errors?.username }}</small>
                 </div>
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="username">Role</label>
@@ -126,10 +132,10 @@
               </div>
               <div class="flex flex-column gap-2 w-full border-round">
                   <label for="password">Password</label>
-                  <InputText id="password" placeholder="Password" aria-describedby="password-help" />
+                  <Password id="password" v-model="editUser.password" placeholder="Password" :feedback="false" aria-describedby="password-help" />
               </div>
-              <Button label="Update" class="border-round" />
-            </div>
+              <Button type="submit" label="Update" class="border-round" />
+            </form>
           </div>
         </div>
     </div>
@@ -146,12 +152,14 @@ import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import Chip from 'primevue/chip';
 import Dropdown from 'primevue/dropdown';
+import Password from 'primevue/password';
+import ConfirmPopup from 'primevue/confirmpopup';
 
 export default {
   layout: AppLayout,
   components: {
     Head, DataTable, Column, InputText, Button,
-    Chip, Dropdown,
+    Chip, Dropdown, Password, ConfirmPopup
   },
   props: {
     users: {
@@ -176,7 +184,7 @@ export default {
           name: 'User',
           code: 'user'
         }
-      ]
+      ],
     }
   },
   methods: {
@@ -203,8 +211,38 @@ export default {
       })
     },
     toggleEdit(data) {
-      this.editUser = this.editUser ? null : {...data, role_id: this.roles.filter((role) => role.code == data.role_id)[0]};
+      this.editUser = this.editUser ? data ? {...data, role_id: this.roles.filter((role) => role.code == data.role_id)[0]} : null : {...data, role_id: this.roles.filter((role) => role.code == data.role_id)[0]};
     },
+    handleSubmit(e) {
+      e.preventDefault();
+      if (this.form.name && this.form.username && this.form.email && this.form.role_id && this.form.password) {
+        this.form.transform((data) => ({ ...data, role_id: data.role_id.code, password_confirmation: data.password })).post(route('users.store'), {
+          onSuccess: () => this.toggleAdd(null)
+        });
+      }
+    },
+    handleUpdate(e) {
+      e.preventDefault();
+      this.editUser = useForm({...this.editUser});
+      this.editUser.transform((data) => ({ ...data, role_id: data.role_id.code, password_confirmation: data.password })).put(route('users.update', this.editUser.id), {
+          onSuccess: () => this.toggleEdit(null)
+        });
+    },
+    handleDelete(event) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: 'Are you sure you want to delete?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          if (this.selectedUsers?.length) {
+            const form = useForm({
+              ids: this.selectedUsers.map((user) => user.id)
+            });
+            form.delete(route('admin.users.delete.bulk'));
+          }
+        }
+      })
+    }
   }
 }
 </script>

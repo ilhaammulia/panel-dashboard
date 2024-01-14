@@ -3,6 +3,7 @@ import "../css/app.css";
 
 import PrimeVue from "primevue/config";
 import ToastService from "primevue/toastservice";
+import ConfirmationService from "primevue/confirmationservice";
 import "primevue/resources/themes/lara-light-indigo/theme.css";
 import "primevue/resources/primevue.min.css";
 import "primeicons/primeicons.css";
@@ -27,6 +28,7 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(PrimeVue)
             .use(ToastService)
+            .use(ConfirmationService)
             .mount(el);
     },
     progress: {

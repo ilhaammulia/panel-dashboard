@@ -147,37 +147,20 @@
         <div class="col-12 xl:col-6">
             <div class="card">
                 <div class="flex align-items-center justify-content-between mb-1">
-                    <h5>Notifications</h5>
+                    <h5>Notifications <Badge :value="notifications.length" severity="primary"></Badge></h5>
                 </div>
 
-                <ul class="p-0 mx-0 mt-0 mb-4 list-none">
-                    <li class="flex align-items-center py-3 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
+                <ul class="p-0 mx-0 mt-0 mb-4 list-none max-h-[30rem] overflow-y-auto">
+                    <li v-for="notification in notifications" :key="notification.id" class="flex align-items-center py-3 border-bottom-1 surface-border">
+                        <div :class="`bg-${notification.color}-100`" class="w-3rem h-3rem flex align-items-center justify-content-center border-circle mr-3 flex-shrink-0">
+                            <i :class="`${notification.icon} text-${notification.color}-500`" class="text-xl"></i>
                         </div>
-                        <span class="text-900 line-height-3"
-                            >Richard Jones
-                            <span class="text-700">has purchased a blue t-shirt for <span class="text-blue-500">79$</span></span>
-                        </span>
-                    </li>
-                    <li class="flex align-items-center py-3 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-download text-xl text-orange-500"></i>
+                        <div class="flex justify-between items-center w-full">
+                            <span class="text-700 line-height-3">{{ notification.message }}</span>
+                            <span class="text-700 line-height-3">{{ formatDate(notification.created_at) }}</span>
                         </div>
-                        <span class="text-700 line-height-3">Your request for withdrawal of <span class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
                     </li>
-                    <li class="flex align-items-center py-3 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-download text-xl text-orange-500"></i>
-                        </div>
-                        <span class="text-700 line-height-3">Your request for withdrawal of <span class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
-                    </li>
-                    <li class="flex align-items-center py-3 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-download text-xl text-orange-500"></i>
-                        </div>
-                        <span class="text-700 line-height-3">Your request for withdrawal of <span class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
-                    </li>
+                    <li v-if="!notifications.length">Notifications are empty.</li>
                 </ul>
             </div>
         </div>
@@ -190,10 +173,29 @@ import { Head } from '@inertiajs/vue3';
 
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Badge from 'primevue/badge';
 
 export default {
   layout: AppLayout,
-  components: { Head, DataTable, Column}
+  components: { Head, DataTable, Column, Badge, },
+  props: {
+    notifications: {
+        type: Array,
+        default: () => []
+    }
+  },
+  methods: {
+    formatDate(date) {
+        const format = new Date(date);
+        return Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(format);
+    }
+  }
 }
 
 </script>

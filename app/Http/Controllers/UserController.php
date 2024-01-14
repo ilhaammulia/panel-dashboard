@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Inertia\Inertia;
 use Services\UserService;
@@ -21,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->map(function ($user) {
+        $users = User::orderBy('updated_at', 'desc')->get()->map(function ($user) {
             return [
                 ...$user->toArray(),
                 'panels' => $user->UserPanels->toArray(),
@@ -40,14 +41,14 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        dd($request);
         try {
-            $user = $this->userService->register($request);
-            return $user;
-        } catch (\Throwable $th) {
-            throw $th;
+            $data = $request->only(['name', 'username', 'email', 'role_id', 'password', 'password_confirmation', 'telegram_bot_token', 'telegram_chat_id']);
+            $this->userService->register($data);
+            return redirect()->to(route('users.index'));
+        } catch (\Exception $th) {
+            return redirect()->to(route('users.index'));
         }
     }
 
@@ -79,9 +80,9 @@ class UserController extends Controller
     {
         try {
             $user = $this->userService->update($id, $request);
-            return $user;
+            return redirect()->to(route('users.index'));
         } catch (\Throwable $th) {
-            throw $th;
+            return redirect()->to(route('users.index'));
         }
     }
 
@@ -96,5 +97,11 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function delete_many(Request $request)
+    {
+        $this->userService->delete_many($request->ids);
+        return redirect()->to(route('users.index'));
     }
 }
