@@ -6,10 +6,12 @@
         <div class="card mb-0">
           <DataTable :value="users" dataKey="id" v-model:selection="selectedUsers" v-model:filters="filters" :globalFilterFields="['name', 'username', 'email', 'role']" paginator :rows="10" :rowsPerPageOptions="[10, 20, 50]" tableStyle="min-width: 50rem">
               <template #header>
-                  <div class="flex justify-content-end">
-                      <Button @click="toggleAdd" icon="pi pi-plus" severity="primary" class="border-round mr-2" />
-                      <Button @click="handleDelete($event)" icon="pi pi-trash" severity="danger" class="border-round mr-3" />
-                      <ConfirmPopup></ConfirmPopup>
+                <div class="flex flex-col sm:flex-row justify-content-end gap-2">
+                      <div class="order-last">
+                        <Button @click="toggleAdd" icon="pi pi-plus" severity="primary" class="border-round mr-2" />
+                        <Button @click="handleDelete($event)" icon="pi pi-trash" severity="danger" class="border-round mr-3" />
+                        <ConfirmPopup></ConfirmPopup>
+                      </div>
                       <span class="p-input-icon-left">
                           <i class="pi pi-search" />
                           <InputText v-model="filters['global'].value" class="border-round" placeholder="Keyword Search" />

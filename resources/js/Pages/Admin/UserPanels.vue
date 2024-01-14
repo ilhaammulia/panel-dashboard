@@ -4,7 +4,7 @@
   <div class="grid">
     <div class="col-12">
         <div class="card mb-0">
-          <DataTable :value="panels" dataKey="id" v-model:selection="selectedPanels" v-model:filters="filters" :globalFilterFields="['name', 'domain', 'status', 'total_user_panels']" paginator :rows="10" :rowsPerPageOptions="[10, 20, 50]" tableStyle="min-width: 50rem">
+          <DataTable :value="user_panels" dataKey="id" v-model:selection="selectedPanels" v-model:filters="filters" :globalFilterFields="['name', 'domain', 'status', 'panel', 'user', 'expired_at']" paginator :rows="10" :rowsPerPageOptions="[10, 20, 50]" tableStyle="min-width: 50rem">
               <template #header>
                   <div class="flex flex-col sm:flex-row justify-content-end gap-2">
                       <div class="order-last">
@@ -21,9 +21,14 @@
               <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
               <Column field="name" sortable header="Name"></Column>
               <Column field="domain" sortable header="Domain"></Column>
-              <Column field="total_user_panels" sortable header="Total User Panels">
+              <Column field="user" sortable header="User">
                 <template #body="{ data }">
-                  {{ data.user_panels.length }}
+                  {{ data.user.name }}
+                </template>
+              </Column>
+              <Column field="panel" sortable header="Panel">
+                <template #body="{ data }">
+                  <Chip :label="data.panel.name" class="bg-bluegray-500 text-white font-bold px-3 text-sm" />
                 </template>
               </Column>
               <Column field="status" sortable header="Status">
@@ -31,6 +36,11 @@
                   <Chip v-if="data.status == 'active'" label="Active" class="bg-green-500 text-white font-bold px-3" />
                   <Chip v-if="data.status == 'expired'" label="Expired" class="bg-yellow-500 text-white font-bold px-3" />
                   <Chip v-if="data.status == 'inactive'" label="Inactive" class="bg-purple-500 text-white font-bold px-3" />
+                </template>
+              </Column>
+              <Column field="expired_at" sortable header="Expired At">
+                <template #body="{ data }">
+                    {{ formatDate(data.expired_at) }}
                 </template>
               </Column>
               <Column field="updated_at" sortable header="Updated At">
@@ -48,7 +58,7 @@
         <div class="grid gap-6">
           <div class="card mt-4 max-w-3xl" v-if="form">
             <div class="flex justify-between">
-              <span class="font-semibold text-lg text-gray-600">Add Panel</span>
+              <span class="font-semibold text-lg text-gray-600">Add User Panel</span>
               <Button @click="toggleAdd()" icon="pi pi-times" class="p-button-text p-button-plain p-button-rounded"></Button>
             </div>
             <form @submit.prevent="handleSubmit" class="flex flex-col gap-4">
@@ -65,20 +75,32 @@
               </div>
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
-                    <label for="icon">Icon</label>
-                    <div v-if="tempIcon.name && tempIcon.src" class="border border-round p-2 flex justify-content-between">
-                      <div class="flex gap-2 items-center">
-                        <Avatar :image="tempIcon.src" class="flex align-items-center justify-content-center mr-2" size="small" />
-                        <p v-if="tempIcon.name" class="font-medium truncate">{{ tempIcon.name }}</p>
-                      </div>
-                      <Button @click="deleteUpload(tempIcon.pathFile)" icon="pi pi-times" severity="danger" text rounded aria-label="Cancel" />
-                    </div>
-                    <FileUpload v-if="!tempIcon.name || !tempIcon.src" mode="basic" name="icon" :url="route('admin.panels.upload.icon')" :auto="true" chooseLabel="Browse" accept="image/*" @upload="onUpload($event)" :maxFileSize="1000000" />
-                    <small v-if="$page.props.errors?.icon" class="text-red-500">{{ $page.props.errors?.icon }}</small>
+                    <label for="user">User</label>
+                    <Dropdown v-model="form.user_id" :options="userOptions" optionLabel="name" placeholder="Select user" />
                 </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="panel">Panel</label>
+                    <Dropdown v-model="form.panel_id" :options="panelOptions" optionLabel="name" placeholder="Select panel" />
+                </div>
+              </div>
+              <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="telegram-bot-token">Telegram Bot Token</label>
+                    <InputText id="telegram-bot-token" v-model="form.telegram_bot_token" placeholder="Telegram Bot Token" aria-describedby="telegram-bot-token-help" />
+                </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="telegram-chat-id">Telegram Chat ID</label>
+                    <InputText id="telegram-chat-id" v-model="form.telegram_chat_id" placeholder="Telegram Chat ID" aria-describedby="telegram-chat-id-help" />
+                </div>
+              </div>
+              <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="status">Status</label>
                     <Dropdown v-model="form.status" :options="statuses" optionLabel="name" placeholder="Select status" />
+                </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="expired-at">Expired At</label>
+                    <Calendar v-model="form.expired_at" showIcon placeholder="Select expired date" />
                 </div>
               </div>
               <Button type="submit" label="Save" class="border-round" />
@@ -87,7 +109,7 @@
 
           <div class="card mt-4 max-w-3xl" v-if="editPanel">
             <div class="flex justify-between">
-              <span class="font-semibold text-lg text-gray-600">Edit Panel</span>
+              <span class="font-semibold text-lg text-gray-600">Edit User Panel</span>
               <Button @click="toggleEdit(null)" icon="pi pi-times" class="p-button-text p-button-plain p-button-rounded"></Button>
             </div>
             <form @submit.prevent="handleUpdate" class="flex flex-col gap-4">
@@ -99,23 +121,37 @@
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="domain">Domain</label>
                     <InputText id="domain" v-model="editPanel.domain" placeholder="Domain" aria-describedby="domain-help" />
+                    <small v-if="$page.props.errors?.domain" class="text-red-500">{{ $page.props.errors?.domain }}</small>
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
-                    <label for="icon">Icon</label>
-                    <div v-if="tempIcon.name && tempIcon.src" class="border border-round p-2 flex justify-content-between">
-                      <div class="flex gap-2 items-center">
-                        <Avatar :image="tempIcon.src" class="flex align-items-center justify-content-center mr-2" size="small" />
-                        <p v-if="tempIcon.name" class="font-medium truncate">{{ tempIcon.name }}</p>
-                      </div>
-                      <Button @click="deleteUpload(tempIcon.pathFile)" icon="pi pi-times" severity="danger" text rounded aria-label="Cancel" />
-                    </div>
-                    <FileUpload v-if="!tempIcon.name || !tempIcon.src" mode="basic" name="icon" :url="route('admin.panels.upload.icon')" :auto="true" chooseLabel="Browse" accept="image/*" @upload="onUpload($event)" :maxFileSize="1000000" />
+                    <label for="user">User</label>
+                    <Dropdown v-model="editPanel.user_id" :options="userOptions" optionLabel="name" placeholder="Select user" />
                 </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="panel">Panel</label>
+                    <Dropdown v-model="editPanel.panel_id" :options="panelOptions" optionLabel="name" placeholder="Select panel" />
+                </div>
+              </div>
+              <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="telegram-bot-token">Telegram Bot Token</label>
+                    <InputText id="telegram-bot-token" v-model="editPanel.telegram_bot_token" placeholder="Telegram Bot Token" aria-describedby="telegram-bot-token-help" />
+                </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="telegram-chat-id">Telegram Chat ID</label>
+                    <InputText id="telegram-chat-id" v-model="editPanel.telegram_chat_id" placeholder="Telegram Chat ID" aria-describedby="telegram-chat-id-help" />
+                </div>
+              </div>
+              <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="status">Status</label>
                     <Dropdown v-model="editPanel.status" :options="statuses" optionLabel="name" placeholder="Select status" />
+                </div>
+                <div class="flex flex-column gap-2 w-full border-round">
+                    <label for="expired-at">Expired At</label>
+                    <Calendar v-model="editPanel.expired_at" showIcon placeholder="Select expired date" />
                 </div>
               </div>
               <Button type="submit" label="Update" class="border-round" />
@@ -139,22 +175,33 @@ import Dropdown from 'primevue/dropdown';
 import Password from 'primevue/password';
 import ConfirmPopup from 'primevue/confirmpopup';
 import Calendar from 'primevue/calendar';
-import FileUpload from 'primevue/fileupload';
 import Avatar from 'primevue/avatar';
-
-import axios from 'axios';
+import Tag from 'primevue/tag';
 
 export default {
   layout: AppLayout,
   components: {
-    Head, DataTable, Column, InputText, Button, FileUpload,
+    Head, DataTable, Column, InputText, Button, Tag,
     Chip, Dropdown, Password, ConfirmPopup, Calendar, Avatar
   },
   props: {
     panels: {
       type: Array,
       default: () => []
+    },
+    user_panels: {
+      type: Array,
+      default: () => []
+    },
+    users: {
+      type: Array,
+      default: () => []
     }
+  },
+  mounted() {
+    this.userOptions = this.users.map((user) => ({ code: user.id, name: user.name}));
+    this.panelOptions = this.panels.map((panel) => ({ code: panel.id, name: panel.name}));
+
   },
   data() {
     return {
@@ -166,6 +213,8 @@ export default {
       form: null,
       icon: null,
       tempIcon: { name: null, src: null },
+      userOptions: [],
+      panelOptions: [],
       statuses: [
         {
           name: 'Active',
@@ -194,28 +243,23 @@ export default {
         name: null,
         domain: null,
         status: null,
+        user_id: null,
+        panel_id: null,
+        telegram_bot_token: null,
+        telegram_chat_id: null,
+        expired_at: null,
       })
     },
     toggleEdit(data) {
-      if (data?.icon) {
-        this.tempIcon = {
-          name: 'Current Icon',
-          src: data.icon,
-          pathFile: data.icon,
-        };
-        this.icon = data.icon;
-      }
-      this.editPanel = this.editPanel ? data ? {...data, status: this.statuses.filter((status) => status.code == data.status)[0]} : null : {...data, status: this.statuses.filter((status) => status.code == data.status)[0]};
+      this.editPanel = this.editPanel ? data ? {...data, status: this.statuses.filter((status) => status.code == data.status)[0], user_id: this.userOptions.filter((option) => option.code == data.user_id)[0], panel_id: this.panelOptions.filter((option) => option.code == data.panel_id)[0]} : null : {...data, status: this.statuses.filter((status) => status.code == data.status)[0], user_id: this.userOptions.filter((option) => option.code == data.user_id)[0], panel_id: this.panelOptions.filter((option) => option.code == data.panel_id)[0]};
     },
     handleSubmit(e) {
       e.preventDefault();
-      if (this.form.name && this.form.domain && this.form.status) {
-        this.form.transform((data) => ({...data, icon: this.icon, status: data.status.code })).post(route('panels.store'), {
+      if (this.form.name && this.form.domain && this.form.status && this.form.user_id && this.form.panel_id && this.form.expired_at) {
+        this.form.transform((data) => ({...data, status: data.status.code, user_id: data.user_id.code, panel_id: data.panel_id.code })).post(route('users.panels.store', {user: this.form.user_id.code}), {
           onSuccess: () => this.toggleAdd(null)
         });
       }
-      this.icon = null;
-      this.tempIcon = { name: null, src: null, pathFile: null, }
     },
     handleUpdate(e) {
       e.preventDefault();
@@ -223,8 +267,6 @@ export default {
       this.editPanel.transform((data) => ({ ...data, icon: this.icon, status: data.status.code, })).put(route('panels.update', this.editPanel.id), {
           onSuccess: () => this.toggleEdit(null)
         });
-      this.icon = null;
-      this.tempIcon = { name: null, src: null, pathFile: null, }
     },
     handleDelete(event) {
       this.$confirm.require({
@@ -241,23 +283,6 @@ export default {
         }
       })
     },
-    onUpload(event) {
-      const data = JSON.parse(event.xhr.response);
-      this.icon = data.url;
-      this.tempIcon = {
-        name: event.files[0].name,
-        src: event.files[0].objectURL,
-        pathFile: data.pathFile
-      }
-    },
-    async deleteUpload(path) {
-      await axios.delete(route('admin.panels.delete.icon'), {
-        data: {
-          pathFile: path
-        }
-      });
-      this.tempIcon =  { name: null, src: null };
-    }
   }
 }
 </script>

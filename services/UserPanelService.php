@@ -4,6 +4,7 @@ namespace Services;
 
 use App\Models\User;
 use App\Models\UserPanel;
+use Carbon\Carbon;
 
 class UserPanelService
 {
@@ -19,6 +20,7 @@ class UserPanelService
 
   public function create($input)
   {
+    $input['expired_at'] = Carbon::parse($input['expired_at']);
     $panel = UserPanel::create($input);
     return $panel;
   }
@@ -31,6 +33,7 @@ class UserPanelService
 
   public function update($id, $input)
   {
+    $input['expired_at'] = Carbon::parse($input['expired_at']);
     $panel = UserPanel::find($id);
     if ($panel) {
       $panel->update($input);

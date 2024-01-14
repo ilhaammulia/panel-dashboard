@@ -31,7 +31,7 @@ Route::middleware([
     });
     Route::middleware(['must.admin'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-        Route::get('/userspanels', [DashboardController::class, 'user_panels'])->name('admin.user.panels');
+        Route::get('/userspanels', [UserPanelController::class, 'index'])->name('admin.user.panels');
 
         Route::resource('users', UserController::class);
         Route::resource('panels', PanelController::class);

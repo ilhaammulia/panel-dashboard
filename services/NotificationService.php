@@ -18,6 +18,6 @@ class NotificationService
 
   public function today()
   {
-    return Notification::orderBy('created_at', 'desc')->limit(15)->get();
+    return Notification::whereDate('created_at', Carbon::today())->orderBy('created_at', 'desc')->get();
   }
 }

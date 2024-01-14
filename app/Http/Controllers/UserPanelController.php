@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Panel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\UserPanel;
 use Services\UserPanelService;
+use Inertia\Inertia;
 
 class UserPanelController extends Controller
 {
@@ -20,8 +23,18 @@ class UserPanelController extends Controller
      */
     public function index()
     {
-        $panels = UserPanel::all();
-        return $panels;
+        $user_panels = UserPanel::orderBy('updated_at', 'desc')->get()->map(function ($panel) {
+            return [
+                ...$panel->toArray(),
+                'user' => $panel->User->toArray(),
+                'panel' => $panel->Panel->toArray(),
+            ];
+        });
+
+        $panels = Panel::where('status', 'active')->get();
+        $users = User::where('role_id', '!=', 'admin')->get();
+
+        return Inertia::render('Admin/UserPanels', ['user_panels' => $user_panels, 'users' => $users->toArray(), 'panels' => $panels->toArray()]);
     }
 
     /**
@@ -38,11 +51,11 @@ class UserPanelController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->only(['user_id', 'panel_id', 'name', 'domain', 'telegram_bot_token', 'telegram_chat_id']);
-            $panel = $this->userPanelService->create($data);
-            return $panel;
+            $data = $request->only(['user_id', 'panel_id', 'name', 'domain', 'telegram_bot_token', 'telegram_chat_id', 'expired_at']);
+            $this->userPanelService->create($data);
+            return redirect()->to(route('admin.user.panels'));
         } catch (\Throwable $th) {
-            throw $th;
+            return redirect()->to(route('admin.user.panels'));
         }
     }
 

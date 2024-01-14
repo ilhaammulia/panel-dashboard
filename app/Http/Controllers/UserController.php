@@ -79,7 +79,8 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $user = $this->userService->update($id, $request);
+            $data = $request->only(['name', 'email', 'username', 'role_id', 'telegram_bot_token', 'telegram_chat_id', 'password']);
+            $this->userService->update($id, $data);
             return redirect()->to(route('users.index'));
         } catch (\Throwable $th) {
             return redirect()->to(route('users.index'));

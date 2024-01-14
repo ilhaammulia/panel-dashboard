@@ -56,7 +56,9 @@ class UserService
 
     $input['username'] = strtolower($input['username']);
     $input['email'] = strtolower($input['email']);
-    $input['password'] = Hash::make($input['password']);
+    if (array_key_exists('password', $input)) {
+      $input['password'] = Hash::make($input['password']);
+    }
 
     if ($user && !$is_exists) {
       $user->update($input);
