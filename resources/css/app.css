@@ -5,3 +5,9 @@
 [x-cloak] {
     display: none;
 }
+
+.active{
+    background: salmon;
+    border: 0;
+    padding: 5px;
+}

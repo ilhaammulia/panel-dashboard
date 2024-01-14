@@ -38,7 +38,7 @@ onMounted(() => {
                     <!-- Start coding here -->
                     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div class="font-black text-gray-900 dark:text-white px-6 py-3 bg-white">
-                            <p class="text-gray-500 dark:text-gray-400">Manage all your existing panel or add a new one</p>
+                            <p class="text-gray-500 dark:text-gray-400">Manage all your existing panels or add a new one</p>
                         </div>
                         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                             <div class="w-full md:w-1/2">
@@ -55,11 +55,11 @@ onMounted(() => {
                                 </form>
                             </div>
                             <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                                <button id="addModal3Button" data-modal-target="addModal3" data-modal-toggle="addModal3" type="button" class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                                <button id="addModal4Button" data-modal-target="addModal4" data-modal-toggle="addModal4" type="button" class="flex items-center justify-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 20 18">
                                         <path d="M6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Zm11-3h-2V5a1 1 0 0 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 0 0 2 0V9h2a1 1 0 1 0 0-2Z"/>
                                     </svg>
-                                    <span class="ml-2">Add Panel</span>
+                                    <span class="ml-2">Add Panels</span>
                                 </button>
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button id="actionsDropdownButton" data-dropdown-toggle="actionsDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
@@ -132,22 +132,22 @@ onMounted(() => {
                                 <tbody>
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</th>
-                                        <td class="px-4 py-3">Lanang20</td>
+                                        <td class="px-4 py-3">Lanang</td>
                                         <td class="px-4 py-3">lanang-jualpulsa.com</td>
                                         <td class="px-4 py-3">Active</td>
                                         <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                                             <img class="w-10 h-10 rounded-full" src="https://img.freepik.com/free-photo/fashion-portrait-beautiful-woman-sunglasses-bokeh-background_1142-42746.jpg?t=st=1704912179~exp=1704915779~hmac=f23cb3ba2e9efd4df4213d52fbeae87008b71b4a16971531d9e3b87e6851b350&w=740" alt="Jese image"> 
                                         </th>
                                         <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="btn1" data-dropdown-toggle="id1" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                            <button id="panel1" data-dropdown-toggle="dropdown_Panel1" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                                 </svg>
                                             </button>
-                                            <div id="id1" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="btn1">
+                                            <div id="dropdown_Panel1" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="panel1">
                                                     <li>
-                                                        <a id="editModal2Button" data-modal-target="editModal2" data-modal-toggle="editModal2" href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                        <a id="editModal4Button" data-modal-target="editModal4" data-modal-toggle="editModal4" href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                     </li>
                                                 </ul>
                                                 <div class="py-1">
@@ -156,84 +156,7 @@ onMounted(() => {
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="border-b dark:border-gray-700">
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</th>
-                                        <td class="px-4 py-3">Lanang20</td>
-                                        <td class="px-4 py-3">lanang-jualpulsa.com</td>
-                                        <td class="px-4 py-3">Active</td>
-                                        <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img class="w-10 h-10 rounded-full" src="https://img.freepik.com/free-photo/fashion-portrait-beautiful-woman-sunglasses-bokeh-background_1142-42746.jpg?t=st=1704912179~exp=1704915779~hmac=f23cb3ba2e9efd4df4213d52fbeae87008b71b4a16971531d9e3b87e6851b350&w=740" alt="Jese image"> 
-                                        </th>
-                                        <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="btn2" data-dropdown-toggle="id2" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                </svg>
-                                            </button>
-                                            <div id="id2" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="btn2">
-                                                    <li>
-                                                        <a id="editModal3Button" data-modal-target="editModal3" data-modal-toggle="editModal3" href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b dark:border-gray-700">
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</th>
-                                        <td class="px-4 py-3">Lanang20</td>
-                                        <td class="px-4 py-3">lanang-jualpulsa.com</td>
-                                        <td class="px-4 py-3">Active</td>
-                                        <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img class="w-10 h-10 rounded-full" src="https://img.freepik.com/free-photo/fashion-portrait-beautiful-woman-sunglasses-bokeh-background_1142-42746.jpg?t=st=1704912179~exp=1704915779~hmac=f23cb3ba2e9efd4df4213d52fbeae87008b71b4a16971531d9e3b87e6851b350&w=740" alt="Jese image"> 
-                                        </th>
-                                        <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="btn3" data-dropdown-toggle="id3" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                </svg>
-                                            </button>
-                                            <div id="id3" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="btn3">
-                                                    <li>
-                                                        <a id="editModal3Button" data-modal-target="editModal3" data-modal-toggle="editModal3" href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b dark:border-gray-700">
-                                        <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">1</th>
-                                        <td class="px-4 py-3">Lanang20</td>
-                                        <td class="px-4 py-3">lanang-jualpulsa.com</td>
-                                        <td class="px-4 py-3">Active</td>
-                                        <th scope="row" class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img class="w-10 h-10 rounded-full" src="https://img.freepik.com/free-photo/fashion-portrait-beautiful-woman-sunglasses-bokeh-background_1142-42746.jpg?t=st=1704912179~exp=1704915779~hmac=f23cb3ba2e9efd4df4213d52fbeae87008b71b4a16971531d9e3b87e6851b350&w=740" alt="Jese image"> 
-                                        </th>
-                                        <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="btn4" data-dropdown-toggle="id4" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                </svg>
-                                            </button>
-                                            <div id="id4" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="btn4">
-                                                    <li>
-                                                        <a id="editModal3Button" data-modal-target="editModal3" data-modal-toggle="editModal3" href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -282,16 +205,16 @@ onMounted(() => {
                 </div>
             </section>
             <!-- Add User modal -->
-            <div id="addModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+            <div id="addModal4" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
                     <!-- Modal content -->
                     <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                         <!-- Modal header -->
                         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Add User
+                                Add User Panels
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="addModal">
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="addModal4">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
@@ -300,21 +223,27 @@ onMounted(() => {
                         <form action="#">
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <div>
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Username" required="">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Id</label>
+                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Id" required="">
                                 </div>
                                 <div>
-                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="example@gmail.com" required="">
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Id</label>
+                                    <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="User Id" required="">
                                 </div>
                                 <div>
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panel Id</label>
+                                    <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Panel Id" required="">
+                                </div>
+                                <div>
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                    <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Name" required="">
+                                </div>
+                                <div>
+                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Admin</option>
-                                        <option value="TV">Staff</option>
-                                        <option value="PC">User</option>
-                                        <option value="GA">Role 1</option>
-                                        <option value="PH">Role 2</option>
+                                        <option selected="">Active</option>
+                                        <option value="TV">Deactive</option>
+                                        <option value="PC">Deleted</option>
                                     </select>
                                 </div>
                                 <div>
@@ -326,16 +255,16 @@ onMounted(() => {
                                     <input type="text" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Bot Token" required="">
                                 </div>
                             </div>
-                            <button type="submit" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <button type="submit" class="text-white inline-flex items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add New User
+                                Add New User Panels
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
             <!-- Edit User modal -->
-            <div id="editModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+            <div id="editModal4" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
                     <!-- Modal content -->
                     <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -344,7 +273,7 @@ onMounted(() => {
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                 Edit User
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="editModal">
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="editModal4">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
@@ -353,21 +282,27 @@ onMounted(() => {
                         <form action="#">
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <div>
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                    <input type="text" value="Lanang20" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Id</label>
+                                    <input type="text" value="1" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                 </div>
                                 <div>
-                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" value="pangestuwicaksono891@gmail.com" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Id</label>
+                                    <input type="text" value="1" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                 </div>
                                 <div>
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Panel Id</label>
+                                    <input type="text" value="1" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                </div>
+                                <div>
+                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                    <input type="text" value="Lanang" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                </div>
+                                <div>
+                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                     <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Admin</option>
-                                        <option value="TV">Staff</option>
-                                        <option value="PC">User</option>
-                                        <option value="GA">Role 1</option>
-                                        <option value="PH">Role 2</option>
+                                        <option selected="">Active</option>
+                                        <option value="TV">Deactive</option>
+                                        <option value="PC">Deleted</option>
                                     </select>
                                 </div>
                                 <div>
@@ -379,11 +314,8 @@ onMounted(() => {
                                     <input type="text" value="CHT21TFTF" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                                 </div>
                             </div>
-                            <button type="submit" class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 20 18">
-                                    <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
-                                    <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
-                                </svg>
+                            <button type="submit" class="text-white inline-flex items-center bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                <iconEdit />
                                 <span class="ml-2">Edit User</span>
                             </button>
                         </form>
@@ -415,3 +347,16 @@ onMounted(() => {
         </main>
     </Dashboard>
 </template>
+
+<script>
+import iconEdit from '@/Components/Icons/iconEdit.vue';
+import iconDelete from '@/Components/Icons/iconDelete.vue';
+
+
+import RecentUser from '@/Components/RecentUser.vue';
+import { router } from '@inertiajs/vue3';
+
+export default {
+  components: { iconEdit,iconDelete, RecentUser },
+}
+</script>

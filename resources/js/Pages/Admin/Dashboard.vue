@@ -534,36 +534,36 @@ onMounted(() => {
               <span class="font-black text-gray-900 dark:text-white ml-3">Home</span>
             </a>
           </li>
-          <li>
+          <li class="ml-3" >
             <Link :href="route('dashboard')" :class="classes"
-              href="#"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-            <iconHome />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">Dashboard</span>
+            <iconHome class="w-4 h-4" />
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">Dashboard</span>
             </Link>
           </li>
+
           <li>
             <a>
               <span class="font-black text-gray-900 dark:text-white ml-3">Manage</span>
             </a>
           </li>
-          <li>
+          <li class="ml-3" >
             <Link :href="route('manage-user')" :class="classes" 
               
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-              <iconUser />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">User</span>
+              <iconUser class="w-4 h-4" />
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">User</span>
             </Link>
           </li>
-          <li>
+          <li class="ml-3">
             <Link :href="route('manage-role')" :class="classes"
               href="#"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-            <iconUsers />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">Role</span>
+            <iconUsers class="w-5 h-5" />
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">Role</span>
             </Link>
           </li>
           <li>
@@ -571,21 +571,21 @@ onMounted(() => {
               <span class="font-black text-gray-900 dark:text-white ml-3">Panel</span>
             </a>
           </li>
-          <li>
+          <li class="ml-3">
             <Link :href="route('manage-panel')" :class="classes" 
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-            <iconPanel />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">Panel</span>
+            <iconPanel class="w-4 h-4" />
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">Panel</span>
             </Link>
           </li>
-          <li>
+          <li class="ml-3">
             <Link :href="route('manage-user-panels')" :class="classes"
               href="#"
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
-            <iconPanels />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">User Panel</span>
+            <iconPanels class="w-5 h-5" />
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">User Panel</span>
             </Link>
           </li>
           <li class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
@@ -594,7 +594,7 @@ onMounted(() => {
               class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >
               <iconLogout />
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">Logout</span>
+              <span class="flex-1 ml-3 text-left whitespace-nowrap text-gray-500 dark:text-gray-400">Logout</span>
             </a>
           </li>
         </ul>
@@ -623,6 +623,6 @@ export default {
     to(link) {
       router.visit(route(link))
     }
-}
+  }
 }
 </script>
