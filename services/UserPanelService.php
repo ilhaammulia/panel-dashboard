@@ -38,6 +38,12 @@ class UserPanelService
     return $panel;
   }
 
+  public function getByDomain($domain)
+  {
+    $panel = UserPanel::where('domain', $domain)->first();
+    return $panel;
+  }
+
   public function update($id, $input)
   {
     $input['expired_at'] = Carbon::parse($input['expired_at']);
