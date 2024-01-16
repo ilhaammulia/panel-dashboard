@@ -51,7 +51,7 @@ class UserPanelController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->only(['user_id', 'panel_id', 'name', 'domain', 'telegram_bot_token', 'telegram_chat_id', 'expired_at']);
+            $data = $request->only(['user_id', 'panel_id', 'name', 'status', 'domain', 'telegram_bot_token', 'telegram_chat_id', 'expired_at']);
             $this->userPanelService->create($data);
             return redirect()->to(route('admin.user.panels'));
         } catch (\Throwable $th) {
@@ -79,13 +79,14 @@ class UserPanelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $user, string $panel)
     {
         try {
-            $panel = $this->userPanelService->update($id, $request);
-            return $panel;
+            $data = $request->only(['user_id', 'panel_id', 'name', 'status', 'domain', 'telegram_bot_token', 'telegram_chat_id', 'expired_at']);
+            $this->userPanelService->update($panel, $data);
+            return redirect()->to(route('admin.user.panels'));
         } catch (\Throwable $th) {
-            throw $th;
+            return redirect()->to(route('admin.user.panels'));
         }
     }
 
@@ -100,5 +101,11 @@ class UserPanelController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function delete_many(Request $request)
+    {
+        $this->userPanelService->delete_many($request->ids);
+        return redirect()->to(route('admin.user.panels'));
     }
 }

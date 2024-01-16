@@ -20,7 +20,9 @@ class UserSeeder extends Seeder
             'password' => 'Password123@',
             'password_confirmation' => 'Password123@',
             'email' => 'admin@admin.com',
-            'role_id' => 'admin'
+            'role_id' => 'admin',
+            'telegram_bot_token' => null,
+            'telegram_chat_id' => null,
         ]);
     }
 }

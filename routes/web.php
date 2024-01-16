@@ -41,5 +41,6 @@ Route::middleware([
         Route::delete('/delete/panels/icon', [PanelController::class, 'remove_upload'])->name('admin.panels.delete.icon');
         Route::delete('/delete/bulk/users', [UserController::class, 'delete_many'])->name('admin.users.delete.bulk');
         Route::delete('/delete/bulk/panels', [PanelController::class, 'delete_many'])->name('admin.panels.delete.bulk');
+        Route::delete('/delete/bulk/userpanels', [UserPanelController::class, 'delete_many'])->name('admin.userpanels.delete.bulk');
     });
 });

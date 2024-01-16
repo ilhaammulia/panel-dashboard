@@ -264,7 +264,7 @@ export default {
     handleUpdate(e) {
       e.preventDefault();
       this.editPanel = useForm({...this.editPanel});
-      this.editPanel.transform((data) => ({ ...data, icon: this.icon, status: data.status.code, })).put(route('panels.update', this.editPanel.id), {
+      this.editPanel.transform((data) => ({...data, status: data.status.code, user_id: data.user_id.code, panel_id: data.panel_id.code })).put(route('users.panels.update', {user: this.editPanel.user.id, panel: this.editPanel.id}), {
           onSuccess: () => this.toggleEdit(null)
         });
     },
@@ -278,7 +278,7 @@ export default {
             const form = useForm({
               ids: this.selectedPanels.map((panel) => panel.id)
             });
-            form.delete(route('admin.panels.delete.bulk'));
+            form.delete(route('admin.userpanels.delete.bulk'));
           }
         }
       })

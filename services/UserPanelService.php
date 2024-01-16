@@ -2,12 +2,19 @@
 
 namespace Services;
 
-use App\Models\User;
 use App\Models\UserPanel;
 use Carbon\Carbon;
+use Services\NotificationService;
 
 class UserPanelService
 {
+  protected $notificationService;
+
+  public function __construct()
+  {
+    $this->notificationService = new NotificationService();
+  }
+
   public function checkPanelIfExists($userId, $domain)
   {
     $panel = UserPanel::where('domain', $domain)->where('user_id', $userId)->count();
@@ -48,5 +55,13 @@ class UserPanelService
       $panel->delete();
     }
     return $panel;
+  }
+
+  public function delete_many($ids)
+  {
+    $panels = UserPanel::whereIn('id', $ids);
+    $panels->delete();
+    $this->notificationService->create("Some user panels has been removed from the server.", 'pi pi-sitemap', 'red');
+    return $panels;
   }
 }
