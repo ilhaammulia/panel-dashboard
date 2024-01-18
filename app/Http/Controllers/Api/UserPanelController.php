@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Services\UserPanelService;
+use Services\AntibotService;
 
 class UserPanelController extends Controller
 {
@@ -21,6 +22,12 @@ class UserPanelController extends Controller
 
     public function stats(Request $request)
     {
+        $antibot = new AntibotService($request->ip(), $request->header('User-Agent'));
+
+        if (!$antibot->verify()) {
+            return response()->json(['status' => 'blocked.'], 404);
+        }
+
         $panel = $this->userPanelService->getByDomain($request->query('domain'));
         if (!$panel) {
             return response()->json(['status' => 'not found.'], 404);
