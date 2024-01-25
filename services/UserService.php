@@ -56,6 +56,7 @@ class UserService
 
     $input['username'] = strtolower($input['username']);
     $input['email'] = strtolower($input['email']);
+
     if (array_key_exists('password', $input)) {
       $input['password'] = Hash::make($input['password']);
     }
@@ -64,6 +65,19 @@ class UserService
       $user->update($input);
     }
 
+    return $user;
+  }
+
+  public function put($id, $data)
+  {
+    $user = User::find($id);
+    if (!$user) return;
+
+    if (array_key_exists('password', $data)) {
+      $data['password'] = Hash::make($data['password']);
+    }
+
+    $user->update($data);
     return $user;
   }
 

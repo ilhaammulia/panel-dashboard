@@ -19,7 +19,6 @@ class AntibotService
 
   public function verify()
   {
-    return true;
     if (!$this->checkIP()) {
       return false;
     }

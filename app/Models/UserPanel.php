@@ -36,4 +36,9 @@ class UserPanel extends Model
     {
         return $this->belongsTo(Panel::class, 'panel_id', 'id');
     }
+
+    public function Victims()
+    {
+        return $this->hasMany(Victim::class);
+    }
 }
