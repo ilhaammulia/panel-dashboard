@@ -3,6 +3,7 @@
 namespace Services;
 
 use App\Models\UserPanel;
+use App\Models\Panel;
 use Carbon\Carbon;
 use Services\NotificationService;
 
@@ -28,6 +29,14 @@ class UserPanelService
   public function create($input)
   {
     $input['expired_at'] = Carbon::parse($input['expired_at']);
+    $rootPanel = Panel::find($input['panel_id']);
+
+    if ($rootPanel && array_key_exists('domain', $input) && !strpos($input['domain'], $rootPanel->domain)) {
+      $input['domain'] = $input['domain'] . '.' . $rootPanel->domain;
+    } else if ($rootPanel && array_key_exists('domain', $input)) {
+      $input['domain'] = $input['domain'] . '.' . $rootPanel->domain;
+    }
+
     $panel = UserPanel::create($input);
     return $panel;
   }
@@ -73,9 +82,14 @@ class UserPanelService
       $input['expired_at'] = Carbon::parse($input['expired_at']);
     }
     $panel = UserPanel::find($id);
-    if ($panel) {
+
+    if ($panel && array_key_exists('domain', $input) && !strpos($input['domain'], $panel->Panel->domain)) {
+      $input['domain'] = $input['domain'] . '.' . $panel->Panel->domain;
+      $panel->update($input);
+    } else if ($panel) {
       $panel->update($input);
     }
+
     return $panel;
   }
 
