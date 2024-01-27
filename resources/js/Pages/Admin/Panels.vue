@@ -98,7 +98,7 @@
                 </div>
                 <div class="flex flex-column gap-2 w-full border-round">
                     <label for="domain">Domain</label>
-                    <InputText id="domain" v-model="editPanel.domain" placeholder="Domain" aria-describedby="domain-help" disabled />
+                    <InputText id="domain" v-model="editPanel.domain" placeholder="Domain" aria-describedby="domain-help" />
                 </div>
               </div>
               <div class="flex flex-col lg:flex-row justify-between gap-4 lg:gap-8">
