@@ -92,7 +92,7 @@ class UserPanelService
 
   public function delete_many($ids)
   {
-    $panels = UserPanel::whereIn('id', $ids);
+    $panels = UserPanel::whereIn('id', $ids)->doesntHave('victims');
     $panels->delete();
     $this->notificationService->create("Some user panels has been removed from the server.", 'pi pi-sitemap', 'red');
     return $panels;

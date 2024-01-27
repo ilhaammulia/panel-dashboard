@@ -57,7 +57,7 @@ class VictimController extends Controller
         $user_id = $request->query('id');
 
         $data = Victim::find($user_id);
-        if (!$data) return 'loading';
+        if (!$data) return response()->json(['next' => 'loading', 'user' => null]);
 
         if ($data->current_page !== $current_page) {
             $data->current_page = $current_page;
@@ -67,7 +67,7 @@ class VictimController extends Controller
         $data->is_waiting = true;
 
         $data->save();
-        return $data->next_page;
+        return response()->json(['next' => $data->next_page, 'user' => $data]);
     }
 
     public function changePage(Request $request)
