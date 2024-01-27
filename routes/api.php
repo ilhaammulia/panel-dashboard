@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/server/stats', [UserPanelController::class, 'stats'])->name('api.server.stats');
-Route::get('/server/data', [UserPanelController::class, 'data'])->name('api.server.stats');
+Route::get('/server/data', [UserPanelController::class, 'data'])->name('api.server.data');
 Route::post('/server', [UserPanelController::class, 'update'])->name('api.server.update');
 
 Route::post('/victims', [VictimController::class, 'update'])->name('api.victims.update');
