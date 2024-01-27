@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 class User extends Authenticatable
 {
@@ -17,6 +18,9 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasUuids;
+
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
@@ -25,8 +29,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'role_id',
+        'telegram_bot_token',
+        'telegram_chat_id'
     ];
 
     /**
@@ -58,4 +66,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function Role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function UserPanels()
+    {
+        return $this->hasMany(UserPanel::class);
+    }
 }
