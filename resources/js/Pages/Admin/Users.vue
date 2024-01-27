@@ -31,7 +31,7 @@
               <Column field="panels" header="Panels">
                 <template #body="{ data }">
                   <div class="max-w-xl space-x-1">
-                    <Chip v-for="a in 3" label="Coinbase" class="text-white text-sm font-bold bg-blue-500" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8hhCX9IDHjOEfUPpYiSTr2rcaskY2FOrqrXsftRDcw&s" />
+                    <Chip v-for="panel in data.panels" :label="panel.name" class="text-white text-sm font-bold bg-blue-500" />
                   </div>
                 </template>
               </Column>
