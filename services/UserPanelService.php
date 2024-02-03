@@ -4,6 +4,7 @@ namespace Services;
 
 use App\Models\UserPanel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Services\NotificationService;
 
 class UserPanelService
@@ -69,10 +70,21 @@ class UserPanelService
 
   public function update($id, $input)
   {
-    if (array_key_exists('expired_at', $input)) {
+
+    $user = Auth::user();
+
+    if (array_key_exists('expired_at', $input) && $user && $user->role_id == 'admin') {
       $input['expired_at'] = Carbon::parse($input['expired_at']);
+      $input['status'] = $input['expired_at'] < Carbon::now() ? 'expired' : $input['status'];
+    } else {
+      unset($input['expired_at']);
     }
+
     $panel = UserPanel::find($id);
+
+    if ((Carbon::parse($panel->expired_at) && Carbon::parse($panel->expired_at) < Carbon::now()) && (!$user || $user->role_id !== 'admin')) {
+      return $panel;
+    }
 
     if ($panel) {
       $panel->update($input);
