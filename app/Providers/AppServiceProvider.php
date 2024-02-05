@@ -7,6 +7,8 @@ use Services\UserPanelService;
 use Services\PanelService;
 use Services\UserService;
 
+use Illuminate\Support\Facades\URL;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (env('APP_ENV') === 'production' || env('APP_ENV') === 'staging') {
+            URL::forceScheme('https');
+        }
     }
 }
