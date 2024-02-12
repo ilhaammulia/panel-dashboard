@@ -36,7 +36,11 @@ class AuthController extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->only('emal', 'telegram_bot_token', 'telegram_chat_id', 'password');
+        $data = $request->only('email', 'telegram_bot_token', 'telegram_chat_id', 'password');
+        $data = array_filter($data, function ($value) {
+            return !is_null($value);
+        });
+
         $user = $this->userService->put($id, $data);
         return response()->json([...$this->userService->json($user)], 200);
     }
